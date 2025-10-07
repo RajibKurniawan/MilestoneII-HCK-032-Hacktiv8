@@ -4,7 +4,7 @@ import eda, predict
 with st.sidebar:
     st.title('Page Navigation')
     # input
-    page = st.radio('Page', ('Eda', 'Model Demo'))
+    page = st.radio('Page', ('EDA', 'Model Demo'))
 
     st.write('# About')
     st.write('''Page ini adalah informasi data dan demi dari model prediksi player rating''')
