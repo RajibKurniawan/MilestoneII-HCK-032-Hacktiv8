@@ -22,11 +22,12 @@ with open("model_files/list_num_cols.txt", "r") as file_4:
 with open("model_files/list_cat_cols.txt", "r") as file_5:
     list_cat_cols = json.load(file_5)
 
+
 def run():
-        # judul
-        st.title("Predict Player Rating")
-        # user input
-with st.form(key="player"):
+    # judul
+    st.title("Predict Player Rating")
+    # user input
+    with st.form(key="player"):
         # input nama
         st.header("Masukan data pemain")
 
@@ -68,42 +69,42 @@ with st.form(key="player"):
         # submit button
         submit = st.form_submit_button("predict")
 
-if submit:
-        data_inf = {
-            "Name": name,
-            "Age": age,
-            "Height": height,
-            "Weight": weight,
-            "Price": price,
-            "AttackingWorkRate": attcaking_wr,
-            "DefensiveWorkRate": deffendsive_wr,
-            "PaceTotal": pace,
-            "ShootingTotal": shooting,
-            "PassingTotal": passing,
-            "DribblingTotal": driblling,
-            "DefendingTotal": defending,
-            "PhysicalityTotal": pyshicality,
-        }
+    if submit:
+            data_inf = {
+                "Name": name,
+                "Age": age,
+                "Height": height,
+                "Weight": weight,
+                "Price": price,
+                "AttackingWorkRate": attcaking_wr,
+                "DefensiveWorkRate": deffendsive_wr,
+                "PaceTotal": pace,
+                "ShootingTotal": shooting,
+                "PassingTotal": passing,
+                "DribblingTotal": driblling,
+                "DefendingTotal": defending,
+                "PhysicalityTotal": pyshicality,
+            }
 
-        data_inf = pd.DataFrame([data_inf])
-        st.dataframe(data_inf)
+            data_inf = pd.DataFrame([data_inf])
+            st.dataframe(data_inf)
 
-        # processing data
-        data_inf_num = data_inf[list_num_cols]
-        data_inf_cat = data_inf[list_cat_cols]
+            # processing data
+            data_inf_num = data_inf[list_num_cols]
+            data_inf_cat = data_inf[list_cat_cols]
 
-        ## Feature Scaling
-        data_inf_num_scaled = model_scaler.transform(data_inf_num)
+            ## Feature Scaling
+            data_inf_num_scaled = model_scaler.transform(data_inf_num)
 
-        ## Feature Encoding
-        data_inf_cat_encoded = model_encoder.transform(data_inf_cat)
+            ## Feature Encoding
+            data_inf_cat_encoded = model_encoder.transform(data_inf_cat)
 
-        ## Concate
-        data_inf_final = np.concatenate([data_inf_num_scaled, data_inf_cat_encoded], axis=1)
+            ## Concate
+            data_inf_final = np.concatenate([data_inf_num_scaled, data_inf_cat_encoded], axis=1)
 
-        # Predict using Linear Regression
-        y_pred_inf = model_lin_reg.predict(data_inf_final)
-        st.write("# Prediction", int(y_pred_inf[0]))
+            # Predict using Linear Regression
+            y_pred_inf = model_lin_reg.predict(data_inf_final)
+            st.write("# Prediction", int(y_pred_inf[0]))
 
 if __name__ == "__main__":
     run()

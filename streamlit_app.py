@@ -11,5 +11,5 @@ with st.sidebar:
 
 if page == "EDA":
     eda.run()
-else :
+else:
     predict.run()
